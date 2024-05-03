@@ -3,8 +3,8 @@ Program biblioteczny:
 
 # Nie interesuja nas autorzy, tylko tytuly.
 
-1. DODAJ     Dodanie ksiazek
-2. POZYCZ    WWyjecie ksiazek (wypozyczenie)
+#1. DODAJ     Dodanie ksiazek
+#2. POZYCZ    WWyjecie ksiazek (wypozyczenie)
 #3. WYPISZ    Wypisanie listy ksiazek z liczby sztuk
 #4. SPRAWDZ   Sprawdzenie czy dana ksiazka jest na stanie
 #5. UNIKALNE  Wypisanie liczby unikalnych tytulow w bibliotece
@@ -27,9 +27,19 @@ while True:
     if akcja == 'KONIEC':
         print('Koncze dzialanie programu...')
         break
-
+    elif akcja == 'POZYCZ':
+        tytul = input("> Podaj tytul ksiazki: ")
+        liczba_sztuk = int(input("> Podaj liczbe sztuk: "))
+        if liczba_sztuk <= 0:
+            print(">> Liczba sztuk pozyczanej ksiazki musi byc wieksza od 0.")
+            continue
+        if tytul in slownik_ksiazek and slownik_ksiazek[tytul] >= liczba_sztuk:
+            print(f">> Pozyczam {liczba_sztuk} sztuk '{tytul}'.")
+            slownik_ksiazek[tytul] -= liczba_sztuk
+        else:
+            print(f">> Niewystarczajaca liczba sztuk ksiazki.")
     elif akcja == 'DODAJ':
-        nazwa = input("Podaj tytul ksiazki: ")
+        tytul = input("Podaj tytul ksiazki: ")
         liczba_sztuk = int(input("Podaj liczbe sztuk: "))
         if liczba_sztuk < 0:
             print(">> Liczba sztuk dodawanej ksiazki musi byc wieksza lub rowna 0.")
@@ -57,7 +67,7 @@ while True:
     elif akcja == 'LICZBA':
         liczba_ksiazek = 0
         for sztuk in slownik_ksiazek.values():
-            liczba_ksiazek =+ sztuk
+            liczba_ksiazek += sztuk
         print(f"> Calkowita liczba woluminow w bibliotece: {liczba_ksiazek}")
     else:
         print(f"Nieznana komenda: {akcja}")
